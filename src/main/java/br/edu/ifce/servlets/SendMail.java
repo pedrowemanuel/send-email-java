@@ -20,7 +20,7 @@ import br.edu.ifce.mail.CommonsMail;
 /**
  * Servlet implementation class SendMail
  */
-public class SendMail extends HttpServlet {
+public class SendMail extends PrivateHttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -35,21 +35,8 @@ public class SendMail extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String user = (String) request.getSession().getAttribute("usuario");
-
-		if (user == null) {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-			dispatcher.forward(request, response);
-
-		}
-
-//		Enumeration formParam = request.getParameterNames();
-//		while (formParam.hasMoreElements()){
-//			String param = (String)formParam.nextElement();	
-//		}
 
 		CommonsMail commonsMail;
 
@@ -62,7 +49,7 @@ public class SendMail extends HttpServlet {
 
 			commonsMail.sendSimpleEmail(mail);
 
-			response.sendRedirect("ResumoEmailsEnviados");
+			response.sendRedirect("email.jsp");
 		} catch (EmailException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

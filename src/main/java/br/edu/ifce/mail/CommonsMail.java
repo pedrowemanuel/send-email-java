@@ -10,11 +10,12 @@ import org.apache.commons.mail.SimpleEmail;
 import br.edu.ifce.beans.Mail;
 
 public class CommonsMail {
-	private static final String hostName = "smtp.googlemail.com";
-	private static final int smptPort = 465;
+	private static final String hostName = "smtp.gmail.com";
+
 	private static final String userNameAuth = "pedro.emanuel.santos08@gmail.com";
 	private static final String passAuth = "";
 	private static final String descriptionFrom = "Loja Online";
+	private static final int smptPort = 587;
 
 	public CommonsMail() throws EmailException, MalformedURLException {
 	}
@@ -27,8 +28,10 @@ public class CommonsMail {
 		email.setSmtpPort(smptPort);
 		email.setAuthentication(userNameAuth, passAuth);
 		email.setFrom(userNameAuth, descriptionFrom);
-		email.setSSL(true);
-		email.setTLS(true);
+		System.setProperty("mail.smtp.ssl.protocols", "TLSv1.2");
+//		email.setSSLOnConnect(true);
+		email.setStartTLSEnabled(true);
+
 		email.setSubject(mail.getSubject());
 		email.setMsg(mail.getMessage());
 		email.addTo(mail.getTo());
